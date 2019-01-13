@@ -1,0 +1,32 @@
+{
+  "name": "jsondatastore",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "jsonstore",
+    "json",
+    "store"
+  ],
+  "author": "Luca Lanziani",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^1.0.1",
+    "lodash.assign": "^4.2.0"
+  },
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucaLanziani/jsonstore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LucaLanziani/jsonstore/issues"
+  },
+  "homepage": "https://github.com/LucaLanziani/jsonstore#readme",
+  "description": ""
+}
