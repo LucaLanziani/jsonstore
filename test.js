@@ -52,6 +52,21 @@ test('datastore put deep new key', t => {
     t.is(t.context.datastore.db.j.a, 102);
 });
 
+test('datastore unset', t => {
+    t.context.datastore.unset('b');
+    t.is(t.context.datastore.db.b, undefined);
+});
+
+test('datastore deep unset', t => {
+    t.context.datastore.unset('c.a');
+    t.is(t.context.datastore.db.c.a, undefined);
+});
+
+test('datastore update', t => {
+    t.context.datastore.update('c.a', x => x*2);
+    t.is(t.context.datastore.db.c.a, 2);
+});
+
 test('datastore gets saved properly', t => {
     t.context.datastore.set('a', 2);
     t.context.datastore.set('j.a', 102)
