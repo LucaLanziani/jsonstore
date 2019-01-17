@@ -30,19 +30,23 @@ class DB {
     }
 
     set (key, value) {
-        return set(this.db, key, value);
+        set(this.db, key, value);
+        return this;
     }
 
     unset (key) {
-        return unset(this.db, key);
+        unset(this.db, key);
+        return this;
     }
 
     update (key, updater) {
-        return update(this.db, key, updater);
+        update(this.db, key, updater);
+        return this;
     }
 
     save () {
         fs.writeFileSync(this.filepath, JSON.stringify(this.db));
+        return this;
     }
 }
 
