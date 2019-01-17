@@ -1,4 +1,5 @@
 import test from 'ava';
+import path from 'path';
 import { readFileSync, unlinkSync, existsSync } from 'fs';
 import { randomBytes } from 'crypto';
 import assign from 'lodash.assign';
@@ -9,7 +10,7 @@ const datastoreContent = {a:1, b: [1, 2], c: {a: 1, b: 2}};
 test.beforeEach(t => {
     let name = randomBytes(4).readUInt32LE(0);
     t.context = {
-        datastore: new DB(`./test_artifacts/datastore_${name}.json`, datastoreContent)
+        datastore: new DB(path.join(__dirname, `./test_artifacts/datastore_${name}.json`), datastoreContent)
     }
 });
 

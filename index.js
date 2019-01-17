@@ -1,20 +1,27 @@
 const fs = require('fs');
+const path = require('path');
 const get = require('lodash.get');
 const set = require('lodash.set');
 const unset = require('lodash.unset');
 const update = require('lodash.update');
 
 class NonExistingKeyError extends Error {}
+class RelativePathError extends Error {}
 
 class DB {
-    constructor (filepath, defaults) {
-        this.filepath = filepath;
+    constructor (absoluteFilepath, defaults) {
+        if (! path.isAbsolute(absoluteFilepath)) {
+            throw new RelativePathError('You cannot pass relative path')
+        };
+
+        this.filepath = absoluteFilepath;
+
         try {
-            this.db = require(filepath);
+            this.db = require(this.filepath);
         } catch (e) {
             this.db = defaults || {};
             this.save();
-            this.db = require(filepath);
+            this.db = require(this.filepath);
         }
     }
 
