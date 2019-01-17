@@ -33,6 +33,10 @@ test('datastore deep get', t => {
     t.is(t.context.datastore.get('c.a'), 1);
 });
 
+test('datastore get default value', t => {
+    t.is(t.context.datastore.get('c.k', 10), 10);
+});
+
 test('datastore put existing key', t => {
     t.context.datastore.set('a', 2);
     t.is(t.context.datastore.db.a, 2);

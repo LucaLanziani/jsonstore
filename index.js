@@ -25,8 +25,8 @@ class DB {
         }
     }
 
-    get (key) {
-        return get(this.db, key);
+    get (key, defaultValue) {
+        return get(this.db, key, defaultValue);
     }
 
     set (key, value) {
