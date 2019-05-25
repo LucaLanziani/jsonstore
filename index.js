@@ -8,21 +8,10 @@ const update = require('lodash.update');
 class NonExistingKeyError extends Error {}
 class RelativePathError extends Error {}
 
-class DB {
-    constructor (absoluteFilepath, defaults) {
-        if (! path.isAbsolute(absoluteFilepath)) {
-            throw new RelativePathError('You cannot pass relative path')
-        };
+class InMemoryDB {
 
-        this.filepath = absoluteFilepath;
-
-        try {
-            this.db = require(this.filepath);
-        } catch (e) {
-            this.db = defaults || {};
-            this.save();
-            this.db = require(this.filepath);
-        }
+    constructor (defaults) {
+        this.db = defaults || {};
     }
 
     get (key, defaultValue) {
@@ -45,6 +34,29 @@ class DB {
     }
 
     save () {
+        return this;
+    }    
+}
+
+class DB extends InMemoryDB {
+    constructor (absoluteFilepath, defaults) {
+        if (! path.isAbsolute(absoluteFilepath)) {
+            throw new RelativePathError('You cannot pass relative path')
+        };
+
+        super(defaults);
+        this.filepath = absoluteFilepath;
+
+        try {
+            this.db = require(this.filepath);
+        } catch (e) {
+            this.save();
+            this.db = require(this.filepath);
+        }
+
+    }
+
+    save () {
         fs.writeFileSync(this.filepath, JSON.stringify(this.db));
         return this;
     }
@@ -52,5 +64,6 @@ class DB {
 
 module.exports = {
     DB,
+    InMemoryDB,
     NonExistingKeyError
 };
